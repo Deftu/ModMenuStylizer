@@ -22,7 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = ModBadgeRenderer.class, remap = false)
 public abstract class Mixin_CustomBadges {
 
-    @Shadow protected Mod mod;
+    @Shadow(remap = false)
+    protected Mod mod;
 
     @Inject(
             method = "draw",
