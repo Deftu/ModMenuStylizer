@@ -1,6 +1,6 @@
-package dev.deftu.modtemplate
+package dev.deftu.modmenustylizer
 
-object ModTemplateConstants {
+object ModMenuStylizerConstants {
 
     const val NAME = "@MOD_NAME@"
     const val ID = "@MOD_ID@"

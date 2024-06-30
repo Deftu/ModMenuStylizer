@@ -4,6 +4,7 @@
     "version": "${mod_version}",
     "name": "${mod_name}",
     "description": "${mod_description}",
+    "icon": "assets/${mod_id}/icon.png",
     "authors": [
         "Deftu"
     ],
@@ -14,10 +15,10 @@
     "license": "LGPL-3.0-or-later",
     "environment": "*",
     "entrypoints": {
-        "main": [
+        "client": [
             {
                 "adapter": "kotlin",
-                "value": "dev.deftu.modtemplate.entrypoint.ModTemplateEntrypoint"
+                "value": "dev.deftu.modmenustylizer.entrypoint.ModMenuStylizerEntrypoint"
             }
         ]
     },

@@ -1,14 +1,12 @@
 {
     "required": true,
-    "package": "dev.deftu.modtemplate.mixins",
+    "package": "dev.deftu.modmenustylizer.mixins",
     "compatibilityLevel": "${java_version}",
     "injectors": {
         "defaultRequire": 1
     },
-    "mixins": [
-    ],
     "client": [
-    ],
-    "server": [
+        "client.Mixin_CustomBadges",
+        "client.Mixin_CustomIcon"
     ]
 }

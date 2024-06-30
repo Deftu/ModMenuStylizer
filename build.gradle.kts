@@ -1,5 +1,6 @@
-import dev.deftu.gradle.utils.MinecraftVersion
-import dev.deftu.gradle.utils.includeOrShade
+import com.modrinth.minotaur.dependencies.DependencyType
+import com.modrinth.minotaur.dependencies.ModDependency
+import dev.deftu.gradle.utils.GameSide
 
 plugins {
     java
@@ -18,17 +19,16 @@ toolkitMultiversion {
 }
 
 toolkitLoomHelper {
-    if (!mcData.isNeoForge) {
-        useMixinRefMap(modData.id)
-    }
+    disableRunConfigs(GameSide.SERVER)
+}
 
-    if (mcData.isForge) {
-        useTweaker("org.spongepowered.asm.launch.MixinTweaker")
-        useForgeMixin(modData.id)
-    }
+toolkitReleases {
+    modrinth {
+        projectId.set("f2ohSWZi")
 
-    if (mcData.isForgeLike && mcData.version >= MinecraftVersion.VERSION_1_16_5) {
-        useKotlinForForge()
+        dependencies.add(ModDependency("Ha28R6CL", DependencyType.REQUIRED)) // Fabric Language Kotlin
+        dependencies.add(ModDependency("mOgUt4GM", DependencyType.REQUIRED)) // Mod Menu
+        dependencies.add(ModDependency("T0Zb6DLv", DependencyType.REQUIRED)) // Textile
     }
 }
 
@@ -38,27 +38,7 @@ dependencies {
     modImplementation("dev.deftu:textile-$mcData:$textileVersion")
     modImplementation("dev.deftu:omnicore-$mcData:$omnicoreVersion")
 
-    if (mcData.isFabric) {
-        modImplementation("net.fabricmc.fabric-api:fabric-api:${mcData.dependencies.fabric.fabricApiVersion}")
-        modImplementation("net.fabricmc:fabric-language-kotlin:${mcData.dependencies.fabric.fabricLanguageKotlinVersion}")
-    } else if (mcData.version <= MinecraftVersion.VERSION_1_12_2) {
-        implementation(includeOrShade(kotlin("stdlib-jdk8"))!!)
-        implementation(includeOrShade("org.jetbrains.kotlin:kotlin-reflect:1.6.10")!!)
-
-        modImplementation(includeOrShade("org.spongepowered:mixin:0.7.11-SNAPSHOT")!!)
-
-        includeOrShade("dev.deftu:textile-$mcData:$textileVersion")
-        includeOrShade("dev.deftu:omnicore-$mcData:$omnicoreVersion")
-    }
-}
-
-tasks {
-
-    fatJar {
-        if (mcData.isLegacyForge) {
-            relocate("dev.deftu.textile", "dev.deftu.favorita.textile")
-            relocate("dev.deftu.omnicore", "dev.deftu.favorita.omnicore")
-        }
-    }
-
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${mcData.dependencies.fabric.fabricApiVersion}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${mcData.dependencies.fabric.fabricLanguageKotlinVersion}")
+    modImplementation(mcData.dependencies.fabric.modMenuDependency)
 }
