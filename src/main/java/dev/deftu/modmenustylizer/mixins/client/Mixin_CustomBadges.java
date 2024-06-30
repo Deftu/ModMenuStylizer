@@ -26,7 +26,8 @@ public abstract class Mixin_CustomBadges {
 
     @Inject(
             method = "draw",
-            at = @At("TAIL")
+            at = @At("TAIL"),
+            remap = false
     )
     private void modmenustylizer$setupCustomBadges(
             //#if MC >= 1.20.1
@@ -53,7 +54,8 @@ public abstract class Mixin_CustomBadges {
         ));
     }
 
-    @Shadow public abstract void drawBadge(
+    @Shadow(remap = false)
+    public abstract void drawBadge(
             //#if MC >= 1.20.1
             DrawContext ctx,
             //#else
