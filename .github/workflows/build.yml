@@ -50,5 +50,6 @@ jobs:
           name: build
           path: |
             build/libs/*.jar
+            build/versions/*.jar
             versions/*/build/libs/*.jar
           if-no-files-found: error
